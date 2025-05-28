@@ -1,0 +1,28 @@
+<!-- templates/manage.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>文献管理</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th><th>标题</th><th>作者</th><th>年份</th><th>类别</th><th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ref in refs %}
+        <tr>
+            <td>{{ ref[0] }}</td>
+            <td>{{ ref[1] }}</td>
+            <td>{{ ref[2] }}</td>
+            <td>{{ ref[3] }}</td>
+            <td>{{ ref[5] }}</td>
+            <td>
+                <a href="/edit/{{ ref[0] }}" class="btn btn-sm btn-primary">编辑</a>
+                <a href="/delete/{{ ref[0] }}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('确定要删除这条文献吗？')">删除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/add.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>添加参考文献</h2>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">标题</label>
+        <input name="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">作者（逗号分隔）</label>
+        <input name="authors" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">年份</label>
+        <input name="year" type="number" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">期刊/会议</label>
+        <input name="journal" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">分类</label>
+        <input name="category" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">DOI</label>
+        <input name="doi" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">PDF链接</label>
+        <input name="pdf_link" class="form-control">
+    </div>
+    <button class="btn btn-success">提交</button>
+</form>
+{% endblock %}

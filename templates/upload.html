@@ -1,0 +1,20 @@
+<!-- templates/upload.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>上传本地 PDF 文件</h2>
+
+{% if message %}
+<div class="alert alert-info">{{ message }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3"><label>标题：</label><input class="form-control" name="title" required></div>
+    <div class="mb-3"><label>作者：</label><input class="form-control" name="authors" required></div>
+    <div class="mb-3"><label>年份：</label><input class="form-control" name="year" type="number" required></div>
+    <div class="mb-3"><label>期刊：</label><input class="form-control" name="journal"></div>
+    <div class="mb-3"><label>分类：</label><input class="form-control" name="category"></div>
+    <div class="mb-3"><label>DOI：</label><input class="form-control" name="doi"></div>
+    <div class="mb-3"><label>上传 PDF 文件：</label><input class="form-control" name="pdf" type="file" accept=".pdf" required></div>
+    <button class="btn btn-success">上传并保存</button>
+</form>
+{% endblock %}

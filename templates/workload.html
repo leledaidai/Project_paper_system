@@ -1,0 +1,24 @@
+<!-- templates/workload.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>论文工作量统计</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>作者</th>
+            <th>发表论文数量</th>
+            <th>累计工作量得分</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author, data in stats.items() %}
+        <tr>
+            <td>{{ author }}</td>
+            <td>{{ data.count }}</td>
+            <td>{{ data.score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/export_workload" class="btn btn-success mt-3">导出Excel</a>
+{% endblock %}

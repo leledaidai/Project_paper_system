@@ -1,0 +1,29 @@
+<!-- templates/search.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>查询参考文献</h2>
+<form method="get" action="/search" class="mb-3">
+    <input type="text" name="q" placeholder="关键词..." value="{{ keyword }}" class="form-control">
+</form>
+
+{% if results %}
+<table class="table table-striped">
+    <thead>
+        <tr><th>ID</th><th>标题</th><th>作者</th><th>年份</th><th>期刊</th></tr>
+    </thead>
+    <tbody>
+        {% for row in results %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% elif keyword %}
+<p>未找到结果。</p>
+{% endif %}
+{% endblock %}

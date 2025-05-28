@@ -1,0 +1,34 @@
+<!-- templates/graph.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>引用网络图</h2>
+
+{% if message %}
+<div class="alert alert-success">{{ message }}</div>
+{% endif %}
+
+<form method="post" class="row g-3 mb-4">
+    <div class="col-md-5">
+        <label>引用者（引用了别人）</label>
+        <select name="from_id" class="form-select">
+            {% for id, title in refs %}
+            <option value="{{ id }}">{{ id }} - {{ title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-5">
+        <label>被引用者（被别人引用）</label>
+        <select name="to_id" class="form-select">
+            {% for id, title in refs %}
+            <option value="{{ id }}">{{ id }} - {{ title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2 align-self-end">
+        <button class="btn btn-primary w-100">添加引用关系</button>
+    </div>
+</form>
+
+<h5>引用关系网络图</h5>
+<img src="/static/graph.png?{{ timestamp }}" alt="引用网络图" class="img-fluid border">
+{% endblock %}

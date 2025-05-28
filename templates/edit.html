@@ -1,0 +1,30 @@
+<!-- templates/edit.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>编辑参考文献</h2>
+<form method="post">
+    <div class="mb-3"><label>标题</label>
+        <input type="text" name="title" class="form-control" value="{{ ref[1] }}" required>
+    </div>
+    <div class="mb-3"><label>作者</label>
+        <input type="text" name="authors" class="form-control" value="{{ ref[2] }}" required>
+    </div>
+    <div class="mb-3"><label>年份</label>
+        <input type="number" name="year" class="form-control" value="{{ ref[3] }}">
+    </div>
+    <div class="mb-3"><label>期刊</label>
+        <input type="text" name="journal" class="form-control" value="{{ ref[4] }}">
+    </div>
+    <div class="mb-3"><label>分类</label>
+        <input type="text" name="category" class="form-control" value="{{ ref[5] }}">
+    </div>
+    <div class="mb-3"><label>DOI</label>
+        <input type="text" name="doi" class="form-control" value="{{ ref[6] }}">
+    </div>
+    <div class="mb-3"><label>PDF链接</label>
+        <input type="text" name="pdf_link" class="form-control" value="{{ ref[7] }}">
+    </div>
+    <button type="submit" class="btn btn-success">保存更改</button>
+    <a href="/manage" class="btn btn-secondary">取消</a>
+</form>
+{% endblock %}
