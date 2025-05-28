@@ -10,13 +10,23 @@
             {% set stats_list = stats.items()|list %}
             {% for author, data in stats_list[:3] %}
             <div class="col-md-4">
-                <div class="card h-100">
+                <div class="card h-100 workload-card">
                     <div class="card-body">
                         <h5 class="card-title">{{ author }}</h5>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <p class="mb-1">论文数量：{{ data.count }}</p>
-                                <p class="mb-0">工作量分数：{{ data.score }}</p>
+                                <p class="mb-2">
+                                    <span class="stat-label">论文数量：</span>
+                                    <span class="badge bg-primary">{{ data.count }}</span>
+                                </p>
+                                <p class="mb-2">
+                                    <span class="stat-label">工作量分数：</span>
+                                    <span class="badge bg-success">{{ data.score }}</span>
+                                </p>
+                                <p class="mb-0">
+                                    <span class="stat-label">平均得分：</span>
+                                    <span class="badge bg-info">{{ "%.2f"|format(data.score / data.count if data.count > 0 else 0) }}</span>
+                                </p>
                             </div>
                             <div class="display-4 text-primary">
                                 <i class="bi bi-person-badge"></i>
@@ -36,14 +46,16 @@
                         <th>作者</th>
                         <th>论文数量</th>
                         <th>工作量分数</th>
+                        <th>平均得分</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for author, data in stats_list %}
                     <tr>
                         <td>{{ author }}</td>
-                        <td>{{ data.count }}</td>
-                        <td>{{ data.score }}</td>
+                        <td><span class="badge bg-primary">{{ data.count }}</span></td>
+                        <td><span class="badge bg-success">{{ data.score }}</span></td>
+                        <td><span class="badge bg-info">{{ "%.2f"|format(data.score / data.count if data.count > 0 else 0) }}</span></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -60,38 +72,90 @@
 
 <style>
 .card {
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
     border: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 12px;
 }
 
-.card:hover {
+.workload-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .table th {
     background-color: var(--primary-color);
     color: white;
     font-weight: 500;
+    padding: 1rem;
+    border: none;
 }
 
 .table td {
     vertical-align: middle;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
 }
 
 .display-4 {
     font-size: 2.5rem;
     color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.workload-card:hover .display-4 {
+    transform: scale(1.1);
 }
 
 .btn {
     padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.badge {
+    padding: 0.5em 0.8em;
+    font-size: 0.9em;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.bg-primary {
+    background-color: #4e73df !important;
+}
+
+.bg-success {
+    background-color: #1cc88a !important;
+}
+
+.bg-info {
+    background-color: #36b9cc !important;
+}
+
+.page-title {
+    color: #2e59d9;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.table-responsive {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 </style>
 {% endblock %}
