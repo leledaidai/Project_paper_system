@@ -122,10 +122,7 @@ paper-management-system/
     └── pdfs/         # PDF文件存储
 ```
 
-## 开发团队
-
-- 开发者：Kanpfx, 
-- 联系方式：6230823@qq.com, 
+# 
 
 ## 许可证
 
