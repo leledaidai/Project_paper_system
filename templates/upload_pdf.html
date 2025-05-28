@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="page-title">上传PDF文件</h2>
+        <form action="/upload_pdf/{{ ref[0] }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label class="form-label">文献标题</label>
+                <input type="text" class="form-control" value="{{ ref[1] }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">选择PDF文件</label>
+                <input type="file" name="pdf" class="form-control" accept=".pdf" required>
+                <div class="form-text">文件大小限制：50MB</div>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">上传</button>
+                <a href="/search" class="btn btn-secondary">返回</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 文件上传验证
+    var fileInput = document.querySelector('input[type="file"]');
+    fileInput.addEventListener('change', function() {
+        var file = this.files[0];
+        if (file) {
+            if (file.size > 50 * 1024 * 1024) {
+                alert('文件大小不能超过50MB');
+                this.value = '';
+            }
+            if (file.type !== 'application/pdf') {
+                alert('请选择PDF文件');
+                this.value = '';
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

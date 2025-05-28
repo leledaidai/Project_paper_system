@@ -1,0 +1,150 @@
+<!-- templates/upload.html -->
+{% extends "layout.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="page-title">上传本地 PDF 文件</h2>
+
+        {% if message %}
+        <div class="alert alert-info d-flex align-items-center" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <div>{{ message }}</div>
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">标题 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-type-h1"></i></span>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">作者 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" name="authors" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">年份 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                        <input type="number" name="year" class="form-control" required 
+                               min="1900" max="{{ now.year }}" value="{{ now.year }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">期刊</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-journal-text"></i></span>
+                        <input type="text" name="journal" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">分类</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                        <input type="text" name="category" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">DOI</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                        <input type="text" name="doi" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">上传 PDF 文件 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-file-pdf"></i></span>
+                        <input type="file" name="pdf" class="form-control" accept=".pdf" required
+                               onchange="updateFileName(this)">
+                    </div>
+                    <div class="form-text">支持的文件格式：PDF，最大文件大小：10MB</div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a href="/" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> 取消
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-upload"></i> 上传并保存
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.form-label {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.input-group-text {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.alert {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+</style>
+
+<script>
+// 更新文件名显示
+function updateFileName(input) {
+    const fileName = input.files[0]?.name;
+    if (fileName) {
+        const fileSize = (input.files[0].size / (1024 * 1024)).toFixed(2);
+        input.nextElementSibling.textContent = `${fileName} (${fileSize} MB)`;
+    }
+}
+
+// 表单验证
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %}

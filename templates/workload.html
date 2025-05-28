@@ -1,0 +1,97 @@
+<!-- templates/workload.html -->
+{% extends "layout.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="page-title">工作量统计</h2>
+        
+        <!-- 工作量卡片 -->
+        <div class="row g-4 mb-4">
+            {% set stats_list = stats.items()|list %}
+            {% for author, data in stats_list[:3] %}
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ author }}</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-1">论文数量：{{ data.count }}</p>
+                                <p class="mb-0">工作量分数：{{ data.score }}</p>
+                            </div>
+                            <div class="display-4 text-primary">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 详细统计表格 -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>作者</th>
+                        <th>论文数量</th>
+                        <th>工作量分数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for author, data in stats_list %}
+                    <tr>
+                        <td>{{ author }}</td>
+                        <td>{{ data.count }}</td>
+                        <td>{{ data.score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end mt-3">
+            <a href="/export_workload" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel"></i> 导出Excel
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}

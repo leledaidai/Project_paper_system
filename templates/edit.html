@@ -1,0 +1,159 @@
+<!-- templates/edit.html -->
+{% extends "layout.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="page-title">编辑参考文献</h2>
+        <form method="post" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">标题 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-type-h1"></i></span>
+                        <input type="text" name="title" class="form-control" value="{{ ref[1] }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">作者 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" name="authors" class="form-control" value="{{ ref[2] }}" required
+                               placeholder="多个作者用英文分号(;)分隔，例如：张三; 李四; 王五">
+                    </div>
+                    <div class="form-text">请使用英文分号(;)分隔多个作者</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">日期 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                        <input type="date" name="date" class="form-control" value="{{ ref[3] }}" required 
+                               min="1900-01-01" max="{{ now.strftime('%Y-%m-%d') }}">
+                    </div>
+                    <div class="form-text">请选择1900年至今的日期</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">期刊</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-journal-text"></i></span>
+                        <input type="text" name="journal" class="form-control" value="{{ ref[4] }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">分类 <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                        <select name="category" class="form-select" required>
+                            <option value="">请选择分类</option>
+                            {% for cat in categories %}
+                            <option value="{{ cat }}" {% if cat == ref[5] %}selected{% endif %}>{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">DOI</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                        <input type="text" name="doi" class="form-control" value="{{ ref[6] }}"
+                               placeholder="例如：10.1234/example">
+                    </div>
+                    <div class="form-text">DOI必须以10.开头</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label class="form-label">论文地址</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-link"></i></span>
+                        <input type="url" name="paper_url" class="form-control" value="{{ ref[7] }}"
+                               placeholder="论文的在线地址（可选）">
+                    </div>
+                    <div class="form-text">可以填写论文的在线地址，用于参考</div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <a href="/" class="btn btn-secondary me-2">
+                    <i class="bi bi-x-circle"></i> 取消
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> 保存修改
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.form-label {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.input-group-text {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.form-control::placeholder {
+    color: #adb5bd;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-text a {
+    color: var(--accent-color);
+}
+
+.form-text a:hover {
+    color: var(--primary-color);
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+</style>
+
+<script>
+// 表单验证
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %}

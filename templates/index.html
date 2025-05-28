@@ -1,0 +1,196 @@
+<!-- templates/index.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- 项目标题和简介 -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-3">论文管理系统</h1>
+        <p class="lead text-muted">一个现代化的学术文献管理平台，帮助研究人员高效管理论文、追踪引用关系、统计工作量</p>
+    </div>
+
+    <!-- 功能卡片 -->
+    <div class="row g-4 mb-5">
+        <!-- 文献管理 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3">
+                        <i class="bi bi-journal-text fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5">文献管理</h3>
+                    <p class="card-text text-muted">添加、编辑、删除文献信息，支持多维度搜索和分类管理</p>
+                    <a href="/manage" class="btn btn-outline-primary mt-3">
+                        <i class="bi bi-arrow-right"></i> 开始管理
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 引用关系 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon bg-success bg-gradient text-white rounded-circle mb-3">
+                        <i class="bi bi-diagram-3 fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5">引用关系</h3>
+                    <p class="card-text text-muted">可视化展示文献间的引用网络，直观呈现研究脉络</p>
+                    <a href="/graph" class="btn btn-outline-success mt-3">
+                        <i class="bi bi-arrow-right"></i> 查看图谱
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工作量统计 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon bg-info bg-gradient text-white rounded-circle mb-3">
+                        <i class="bi bi-bar-chart fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5">工作量统计</h3>
+                    <p class="card-text text-muted">统计作者工作量，支持分类权重计算和数据导出</p>
+                    <a href="/workload" class="btn btn-outline-info mt-3">
+                        <i class="bi bi-arrow-right"></i> 查看统计
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDF管理 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon bg-warning bg-gradient text-white rounded-circle mb-3">
+                        <i class="bi bi-file-earmark-pdf fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5">PDF管理</h3>
+                    <p class="card-text text-muted">上传、预览和管理文献PDF文件，支持在线查看</p>
+                    <a href="/search" class="btn btn-outline-warning mt-3">
+                        <i class="bi bi-arrow-right"></i> 搜索文献
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快速操作 -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-4 text-center">快速操作</h2>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <a href="/add" class="btn btn-primary w-100">
+                                <i class="bi bi-plus-circle"></i> 添加文献
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a href="/search" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-search"></i> 搜索文献
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a href="/export" class="btn btn-outline-success w-100">
+                                <i class="bi bi-file-earmark-excel"></i> 导出数据
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a href="/graph" class="btn btn-outline-info w-100">
+                                <i class="bi bi-diagram-3"></i> 引用图谱
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 技术特点 -->
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-4 text-center">技术特点</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>现代化UI设计，响应式布局</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>高效的数据处理和存储</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>直观的引用关系可视化</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>灵活的工作量统计功能</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>便捷的PDF文件管理</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>完善的数据导入导出</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* 功能图标样式 */
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* 卡片悬停效果 */
+.hover-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 按钮样式优化 */
+.btn {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* 快速操作按钮组样式 */
+.btn-group {
+    gap: 0.5rem;
+}
+
+/* 技术特点图标样式 */
+.bi-check-circle-fill {
+    font-size: 1.2rem;
+}
+</style>
+{% endblock %}
