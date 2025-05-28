@@ -55,7 +55,7 @@
 1. 克隆项目
    
    ```bash
-   git clone 
+   git clone https://github.com/leledaidai/Project_paper_system.git
    cd paper-management-system
    ```
 
