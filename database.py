@@ -101,12 +101,14 @@ def validate_reference_data(title: str, authors: str, date: str, journal: str,
         raise ValueError("分类必须是：CCF-A、CCF-B、CCF-C、SCI、EI、其他")
     
     # 验证DOI格式
-    if doi:
-        doi = doi.strip()
-        if not doi.startswith('10.'):
-            raise ValueError("DOI格式必须以10.开头")
-    else:
-        doi = None  # 将空字符串转换为None
+    if not doi or not doi.strip():
+        raise ValueError("DOI不能为空")
+    
+    doi = doi.strip()
+    # DOI格式验证：必须以10.开头，后面跟数字，然后是/，再跟任意字符
+    doi_pattern = r'^10\.\d{4,}(?:\.\d+)*\/.+$'
+    if not re.match(doi_pattern, doi):
+        raise ValueError("DOI格式不正确，正确格式如：10.1000/182 或 10.1038/nphys1170")
 
 def add_reference(title: str, authors: str, date: str, journal: str, 
                  category: str, doi: str = '', paper_url: str = '') -> None:
@@ -115,10 +117,6 @@ def add_reference(title: str, authors: str, date: str, journal: str,
     
     # 标准化作者格式（去除多余空格，确保分号后有空格）
     authors = '; '.join(a.strip() for a in authors.split(';'))
-    
-    # 处理空DOI
-    if not doi:
-        doi = None
     
     db.execute_update(
         '''INSERT INTO "paper_references" (title, authors, date, journal, category, doi, paper_url, created_at, updated_at)

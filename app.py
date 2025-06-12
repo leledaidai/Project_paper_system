@@ -283,6 +283,8 @@ def manage():
 
 @app.route('/edit/<int:ref_id>', methods=['GET', 'POST'])
 def edit(ref_id):
+    categories = ["CCF-A", "CCF-B", "CCF-C", "SCI", "EI", "其他"]
+    
     if request.method == 'POST':
         try:
             update_reference(ref_id,
@@ -296,12 +298,13 @@ def edit(ref_id):
             )
             return redirect('/manage')
         except ValueError as e:
-            return render_template('edit.html', error=str(e), ref=get_reference_by_id(ref_id), now=datetime.datetime.now())
+            ref = get_reference_by_id(ref_id)
+            return render_template('edit.html', error=str(e), ref=ref, categories=categories, now=datetime.datetime.now())
     
     ref = get_reference_by_id(ref_id)
     if not ref:
         return redirect('/manage')
-    return render_template('edit.html', ref=ref, now=datetime.datetime.now())
+    return render_template('edit.html', ref=ref, categories=categories, now=datetime.datetime.now())
 
 @app.route('/delete/<int:ref_id>')
 def delete(ref_id):
@@ -458,6 +461,14 @@ def upload_pdf_page(ref_id):
         flash('文献不存在', 'error')
         return redirect(url_for('search'))
     return render_template('upload_pdf.html', ref=ref)
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    categories = ["CCF-A", "CCF-B", "CCF-C", "SCI", "EI", "其他"]
+    if request.method == 'POST':
+        # 这里应有上传处理逻辑（如保存文件、写数据库等），略去实现细节
+        pass
+    return render_template('upload.html', categories=categories, now=datetime.datetime.now())
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -57,13 +57,14 @@
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">DOI</label>
+                    <label class="form-label">DOI <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-                        <input type="text" name="doi" class="form-control" value="{{ ref[6] }}"
-                               placeholder="例如：10.1234/example">
+                        <input type="text" name="doi" class="form-control" value="{{ ref[6] }}" required
+                               pattern="10\.\d{4,}(?:\.\d+)*\/.+" 
+                               placeholder="例如：10.1000/182 或 10.1038/nphys1170">
                     </div>
-                    <div class="form-text">DOI必须以10.开头</div>
+                    <div class="form-text">DOI格式：10.xxxx/xxxxx（必填字段）</div>
                 </div>
             </div>
 
@@ -155,5 +156,25 @@
         }, false)
     })
 })()
+
+// DOI格式验证
+document.addEventListener('DOMContentLoaded', function() {
+    const doiInput = document.querySelector('input[name="doi"]');
+    if (doiInput) {
+        doiInput.addEventListener('input', function() {
+            const doi = this.value.trim();
+            if (!doi) {
+                this.setCustomValidity('DOI不能为空');
+            } else {
+                const doiPattern = /^10\.\d{4,}(?:\.\d+)*\/.+$/;
+                if (!doiPattern.test(doi)) {
+                    this.setCustomValidity('DOI格式不正确，正确格式如：10.1000/182');
+                } else {
+                    this.setCustomValidity('');
+                }
+            }
+        });
+    }
+});
 </script>
 {% endblock %}
