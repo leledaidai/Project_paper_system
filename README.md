@@ -65,13 +65,7 @@
    pip install -r requirements.txt
    ```
 
-3. 初始化数据库
-   
-   ```bash
-   python init_db.py
-   ```
-
-4. 运行应用
+3. 运行应用
    
    ```bash
    python app.py
