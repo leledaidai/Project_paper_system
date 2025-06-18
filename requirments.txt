@@ -1,1 +1,6 @@
 flask
+pandas
+requests
+networkx
+matplotlib
+isort
